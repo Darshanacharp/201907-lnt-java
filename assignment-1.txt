@@ -1,0 +1,27 @@
+define a BankAccount
+
+	* BankAccount should have
+		accountNumber
+		name
+		password
+		balance
+		interestRate
+
+
+	* BankAccount should allow
+
+		* deposit()
+			* amount must be positive number
+
+		* withdraw()
+			* amount must be
+				* positive
+				* less than or equal to balance
+
+			* must validate the password	
+
+		* creditInterest()
+			* adds one month interest using formulat:
+				balance+= balance*interestRate/1200
+
+
