@@ -10,6 +10,7 @@ define a BankAccount
 
 	* BankAccount should allow
 
+
 		* deposit()
 			* amount must be positive number
 
@@ -23,5 +24,8 @@ define a BankAccount
 		* creditInterest()
 			* adds one month interest using formulat:
 				balance+= balance*interestRate/1200
+
+
+* Write a simple main() to test the code.
 
 
