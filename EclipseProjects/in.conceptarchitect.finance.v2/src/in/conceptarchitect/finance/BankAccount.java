@@ -8,7 +8,9 @@ public class BankAccount {
 	String password;
 	double interestRate;
 	
-	public void openAccount(int accNo, String name, String pass, double amount, double rate) {
+	//public void openAccount(int accNo, String name, String pass, double amount, double rate) {
+	
+	public  BankAccount(int accNo, String name, String pass, double amount, double rate) {
 		// TODO Auto-generated method stub
 		accountNumber=accNo;
 		this.name=name;

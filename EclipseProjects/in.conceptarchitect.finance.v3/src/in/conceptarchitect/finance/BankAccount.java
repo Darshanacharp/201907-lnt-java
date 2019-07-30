@@ -2,19 +2,24 @@ package in.conceptarchitect.finance;
 
 public class BankAccount {
 
+	static int lastId=0;
+	
 	int accountNumber;
 	String name;
 	double balance;
 	String password;
-	double interestRate;
+	static double interestRate=12;
 	
-	public void openAccount(int accNo, String name, String pass, double amount, double rate) {
+	//public void openAccount(int accNo, String name, String pass, double amount, double rate) {
+	
+	public  BankAccount( String name, String pass, double amount) {
 		// TODO Auto-generated method stub
-		accountNumber=accNo;
+		lastId+=1;
+		accountNumber=lastId;
 		this.name=name;
 		this.password=pass; //this optional but allowed
 		this.balance=amount;
-		this.interestRate=rate;
+		//this.interestRate=rate;
 	}
 	
 	
@@ -39,7 +44,7 @@ public class BankAccount {
 	public double getInterestRate() {return interestRate;}
 	
 	
-	public void setInterestRate(double value) {
+	public static void setInterestRate(double value) {
 		double min= interestRate*.9;
 		double max= interestRate*1.1;
 		if(value<min || value>max)
