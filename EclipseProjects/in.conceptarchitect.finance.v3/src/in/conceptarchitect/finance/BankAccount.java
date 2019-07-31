@@ -3,12 +3,15 @@ package in.conceptarchitect.finance;
 public class BankAccount {
 
 	static int lastId=0;
+	static double interestRate=12;
+	
 	
 	int accountNumber;
 	String name;
 	double balance;
 	String password;
-	static double interestRate=12;
+	
+	public static int getAccountCount() { return lastId;}
 	
 	//public void openAccount(int accNo, String name, String pass, double amount, double rate) {
 	

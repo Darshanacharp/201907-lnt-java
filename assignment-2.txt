@@ -1,0 +1,51 @@
+Assignment
+------------------
+
+* There are different type of Bank Accounts.
+	* SavingsAccount
+	* CurrentAccount
+	* OverdraftAccount
+
+* The accounts behaviors depends on the type
+
+
+Account Type   ---->  Widthdraw Limit		Credit Interest       Max Single Transaction
+
+Savings			balance-5000			normal           50000
+
+CurrentAccount		balance				no interest      unlimited
+
+OverdraftAccount	balance+odLimit			normal           100000
+
+
+
+* Overdraft Account
+
+	* We can withdraw more than we have
+	* OdLimit is 10% of historic max balance
+
+	* If altime highest balance is 100000
+		* OdLimit is 10% of 100000 = 10000
+
+	* if current balance is 20000
+		* Max allowed withdraw is 20000+10000=30000
+
+	* if we withdraw Rs 25000
+
+		* overdraft is 25000-20000=5000
+
+	* the od charge is 10% of od
+		* od charge is 5000*10%=500
+
+	* the final balance is 20000-25000-500= -5500 (Negative Balance)
+
+
+
+
+
+
+
+
+
+
+

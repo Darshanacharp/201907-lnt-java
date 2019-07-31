@@ -34,6 +34,8 @@ public class Program {
 		a4.show();
 		
 		
+		System.out.println("Total Accounts: "+ BankAccount.getAccountCount() );
+		
 	
 
 				
