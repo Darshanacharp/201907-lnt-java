@@ -25,8 +25,9 @@ public class BankAccount {
 	public String getName() { return name;}
 	
 	public void setName(String value) {
-	
-		if(lastName(name) == lastName(value))
+		String ln1=lastName(name);
+		String ln2=lastName(value);
+		if(lastName(name).equals(lastName(value)))
 			this.name=value;
 		
 	}
@@ -53,6 +54,7 @@ public class BankAccount {
 	
 	public boolean authenticate(String password) {
 		return this.password.equals(password);
+		//return true;
 	}
 	
 	public void changePassword(String oldPassword, String newPassword) {
@@ -71,8 +73,10 @@ public class BankAccount {
 
 	public boolean deposit(double amount) {
 		// TODO Auto-generated method stub
+		
+		
 		if(amount>0) {
-			balance+=amount; //depsoit only when it is grater than 0
+			balance+=amount;
 			return true;
 		}
 		else
