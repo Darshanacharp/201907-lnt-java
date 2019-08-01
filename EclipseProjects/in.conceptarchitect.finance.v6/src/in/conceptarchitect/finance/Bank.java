@@ -29,10 +29,15 @@ public class Bank {
 		return accountNumber;
 	}
 
-	public void showInfo(int accountNumber) {
+	public void showInfo(int accountNumber, String password) {
 		BankAccount a = findActiveAccount(accountNumber);
+		
 		if(a==null)
 			return;
+		
+		if(!a.authenticate(password))
+			return ;
+		
 		a.show();
 	}
 

@@ -52,7 +52,7 @@ public class BankAccount {
 	//password should have regular get/set
 	
 	public boolean authenticate(String password) {
-		return this.password==password;
+		return this.password.equals(password);
 	}
 	
 	public void changePassword(String oldPassword, String newPassword) {

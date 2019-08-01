@@ -1,5 +1,6 @@
 package in.conceptarchitect.app;
 
+import in.conceptarchitect.finance.ATM;
 import in.conceptarchitect.finance.Bank;
 
 public class Program {
@@ -15,7 +16,7 @@ public class Program {
 		int a4=icici.openAccount("Shivanshi Mishra","1234",10000);
 		
 
-		ATM atm=new ATM(icici);
+		ATM atm=new ATM(icici); //installing ATM in icici bank
 		
 		atm.start();
 		/*
@@ -35,7 +36,7 @@ public class Program {
 		 * amount?
 		 */
 		
-		
+		System.out.println("ATM Shutdown...");
 		
 	}
 
