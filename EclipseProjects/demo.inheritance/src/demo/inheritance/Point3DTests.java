@@ -15,8 +15,7 @@ public class Point3DTests {
 	@Test public void Point3d_hasXAndY() {
 		Point3D p3=new Point3D();
 		p3.setX(3);
-		p3.setY(4);
-		
+		p3.setY(4);		
 		assertEquals("Point(3.0,4.0,0.0)", p3.info());
 		
 	}
@@ -27,12 +26,9 @@ public class Point3DTests {
 		//The code will not compile if you uncomment the above line
 	}
 	
-	
 	@Test public void subclassObjectCanReplaceSuperClassObject() {
-		Point p1=new Point(3,4);
-		
-		Point origin=new Point3D();
-		
+		Point p1=new Point(3,4);		
+		Point3D origin=new Point3D();		
 		double d= p1.distance(origin); //Point3D object passed for Point object
 		
 		assertEquals(5,d,0.01);
@@ -62,9 +58,10 @@ public class Point3DTests {
 	}
 	
 	@Test public void distance_canOverrideExistingBehavior() {
-		Point3D p=new Point3D(3,4,5);
-		Point origin=new Point3D();
+		Point p=new Point3D(3,4,5);
+		Point origin=new Point();
 		double d= origin.distance(p);
+		double d2=p.distance(origin);
 		
 		assertEquals(Math.sqrt(50), d, 0.1);
 	}

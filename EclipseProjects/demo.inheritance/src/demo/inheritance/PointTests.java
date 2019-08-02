@@ -50,5 +50,34 @@ public class PointTests {
 		
 		
 	}
+	
+	@Test
+	public void equals_twoPointsWithSameXandYshouldBeEqual() {
+	
+		Point p1=new Point(3,4);
+		Point p2=new Point(3,4);
+		
+		//calls p1.equals(p2)
+		assertEquals(p1, p2);
+		
+		
+	}
+	
+	@Test
+	public void same_twoPointsWithSameXandYshouldNotBeSame() {
+	
+		Point p1=new Point(3,4);
+		Point p2=new Point(3,4);
+		
+		//calls p1!=p2 --> reference equal
+		assertNotSame(p1, p2);
+		
+		
+	}
+	
+	
+	
+	
+	
 
 }
