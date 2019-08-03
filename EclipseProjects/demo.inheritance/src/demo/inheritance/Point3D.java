@@ -50,6 +50,23 @@ public class Point3D
 		return p2.replace("(", "3D(").replace(")", ","+z+")");
 	}
 	
+	@Override
+	public Point3D clone() throws CloneNotSupportedException {
+		return (Point3D) super.clone();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(!(o instanceof Point))
+			return false;
+		
+		if(!(o instanceof Point3D))
+			return super.equals(o); //Point equals
+		
+		Point3D p=(Point3D) o;
+		
+		return super.equals(p) && z==p.z;
+	}
 }
 
 

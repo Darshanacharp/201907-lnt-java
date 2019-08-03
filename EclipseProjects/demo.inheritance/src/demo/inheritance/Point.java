@@ -1,7 +1,7 @@
 package demo.inheritance;
 import static java.lang.Math.sqrt;
 
-public class Point {
+public class Point implements Cloneable{
 	
 	private double x,y;
 	public double getX() {
@@ -17,6 +17,11 @@ public class Point {
 		this.y = y;
 	}
 	
+	@Override
+	public Point clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return (Point) super.clone();
+	}
 	
 	
 	

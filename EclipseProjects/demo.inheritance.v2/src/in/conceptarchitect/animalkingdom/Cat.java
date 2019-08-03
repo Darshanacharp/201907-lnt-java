@@ -1,6 +1,6 @@
 package in.conceptarchitect.animalkingdom;
 
-public abstract class Cat extends Mammal implements Hunter{
+public 	abstract class Cat extends Mammal implements Hunter{
 
 	@Override
 	public String eat() {

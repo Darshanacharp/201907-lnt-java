@@ -75,6 +75,26 @@ public class PointTests {
 		
 	}
 	
+	@Test
+	public void same_assignmentDoesntDuplicateAnObject() {
+		Point p1=new Point(3,4);
+		Point p2=p1;
+		
+		assertSame(p1,p2);
+		assertEquals(p1, p2);
+		
+	}
+	
+	
+	@Test
+	public void clone_shouldDuplicateAnObject() throws CloneNotSupportedException {
+		
+		Point p1=new Point(3,4);
+		Point p2=p1.clone();
+		
+		assertEquals(p1,p2); //values should be same
+		assertNotSame(p1, p2); //should not be same object ---> its an exact replica of original
+	}
 	
 	
 	

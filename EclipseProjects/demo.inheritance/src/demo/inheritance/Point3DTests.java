@@ -3,7 +3,7 @@ package demo.inheritance;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class Point3DTests {
+public class Point3DTests implements Cloneable{
 
 	@Test
 	public void point3D_isATypeOfPoint() {
@@ -16,7 +16,7 @@ public class Point3DTests {
 		Point3D p3=new Point3D();
 		p3.setX(3);
 		p3.setY(4);		
-		assertEquals("Point(3.0,4.0,0.0)", p3.info());
+		assertEquals("Point3D(3.0,4.0,0.0)", p3.info());
 		
 	}
 	
@@ -59,7 +59,7 @@ public class Point3DTests {
 	
 	@Test public void distance_canOverrideExistingBehavior() {
 		Point p=new Point3D(3,4,5);
-		Point origin=new Point();
+		Point origin=new Point3D();
 		double d= origin.distance(p);
 		double d2=p.distance(origin);
 		
@@ -72,4 +72,23 @@ public class Point3DTests {
 		System.out.println(p3.info());
 		assertEquals("Point3D(3.0,4.0,5.0)",p3.info());
 	}
+	
+	
+	@Test
+	public void clone_shouldDuplicateAnObject() throws CloneNotSupportedException {
+		
+		Point3D p1=new Point3D(3,4,5);
+		Point3D p2=p1.clone();
+		
+		assertEquals(p1,p2); //values should be same
+		assertNotSame(p1, p2); //should not be same object ---> its an exact replica of original
+	}
+	
+	
+	
 }
+
+
+
+
+
