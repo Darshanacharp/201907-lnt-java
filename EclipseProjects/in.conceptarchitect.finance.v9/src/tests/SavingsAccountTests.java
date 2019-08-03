@@ -1,14 +1,17 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import in.conceptarchitect.finance.AccountStatus;
 import in.conceptarchitect.finance.BankAccount;
+import in.conceptarchitect.finance.SavingsAccount;
 
-public class BankAccountTests {
+public class SavingsAccountTests {
 	static final String correctPassword="p@ss";
 	static final int initialBalance=10000;
 	static final String firstName="Vivek", lastName="Mishra";
@@ -28,7 +31,7 @@ public class BankAccountTests {
 	
 	@Before
 	public void setup() {
-		account=new BankAccount(0, name,correctPassword,initialBalance);
+		account=new SavingsAccount(0, name,correctPassword,initialBalance);
 	}
 	
 	@Test
@@ -91,13 +94,13 @@ public class BankAccountTests {
 		assertBalanceShouldBe(initialBalance-amount);
 	}
 	
-	@Test
-	public void withdraw_canWithdrawEntireAmount() {
-		account.withdraw(initialBalance, correctPassword);
-		
-		assertBalanceShouldBe(0);
-		
-	}
+//	@Test
+//	public void withdraw_canWithdrawEntireAmount() {
+//		account.withdraw(initialBalance, correctPassword);
+//		
+//		assertBalanceShouldBe(0);
+//		
+//	}
 	
 	@Test
 	public void withdraw_failsOnClosedAccount() {

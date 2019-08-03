@@ -19,15 +19,35 @@ public class Bank {
 
 	public int openAccount(String accountName, String password, double amount) {
 		// TODO Auto-generated method stub
+		return openSavingsAccount(accountName, password, amount);
+	}
+	
+	public int openSavingsAccount(String accountName, String password, double amount) {
+		// TODO Auto-generated method stub
+		
+		BankAccount account=new SavingsAccount(0,accountName,password, amount);
+		return addAccount(account);
+	}
+
+	private int addAccount(BankAccount account) {
 		int accountNumber=++lastId;
-		BankAccount account=new BankAccount(accountNumber,accountName,password, amount);
-
-		//store this account in accounts
-
+		account.accountNumber=accountNumber;
 		accounts[accountNumber]=account;
-
 		return accountNumber;
 	}
+	
+	public int openCurrentAccount(String accountName, String password, double amount) {
+		// TODO Auto-generated method stub
+		return addAccount(new CurrentAccount(0,accountName,password, amount));
+	}
+	
+	public int openOverdraftAccount(String accountName, String password, double amount) {
+		// TODO Auto-generated method stub
+		return addAccount(new OverdraftAccount(0,accountName,password, amount));
+		
+	}
+	
+	
 
 	public void showInfo(int accountNumber, String password) {
 		BankAccount a = findActiveAccount(accountNumber);
@@ -38,7 +58,8 @@ public class Bank {
 		if(!a.authenticate(password))
 			return ;
 
-		a.show();
+		//a.show();
+		System.out.println(a);
 	}
 
 
@@ -103,6 +124,9 @@ public class Bank {
 		}
 
 	}
+	
+	
+	
 	public void creditInterest() {
 		// TODO Auto-generated method stub
 		for(int i=1;i<=lastId;i++)
@@ -162,6 +186,8 @@ public class Bank {
 		else
 			return null;
 	}
+
+	
 
 
 }

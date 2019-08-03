@@ -1,11 +1,9 @@
 package in.conceptarchitect.finance;
 
-public class BankAccount {
+public abstract class BankAccount {
 	
-	private int accountNumber;
+	int accountNumber; //package scope
 	private String name;
-	private double balance;
-	private String password;
 	private AccountStatus status;
 	
 	
@@ -31,7 +29,6 @@ public class BankAccount {
 			this.name=value;
 		
 	}
-	
 	private String lastName(String name) {
 		// TODO Auto-generated method stub
 		int lastSpace= name.lastIndexOf(' ');
@@ -40,37 +37,23 @@ public class BankAccount {
 		else
 			return name.substring(lastSpace+1);
 	}
-
-	
 	public int getAccountNumber() { return accountNumber;} 
-	
-	//since accountNumber can't be changed after accountOpening there will be no setter
-	
 	public double getBalance() {return balance;}
-	
-	//balance can be changed by deposit/withdraw and not directly
-	
-	//password should have regular get/set
-	
 	public boolean authenticate(String password) {
 		return this.password.equals(password);
 		//return true;
 	}
-	
 	public void changePassword(String oldPassword, String newPassword) {
 		if(authenticate(oldPassword))
 			password=newPassword;
 	}
-	
-	
-	public void show() {
-		System.out.println("Account Number "+accountNumber);
-		System.out.println("Name           "+name);
-		System.out.println("Balance        "+balance);
-		//System.out.println("Inerest Rate   "+interestRate);
-		System.out.println();
-	}
-
+//	public void show() {
+//		System.out.println("Account Number "+accountNumber);
+//		System.out.println("Name           "+name);
+//		System.out.println("Balance        "+balance);
+//		//System.out.println("Inerest Rate   "+interestRate);
+//		System.out.println();
+//	}
 	public boolean deposit(double amount) {
 		// TODO Auto-generated method stub
 		
@@ -82,9 +65,23 @@ public class BankAccount {
 		else
 			return false;
 	}
+	public void creditInterest(double interestRate)
+	{
+		balance+=balance*interestRate/1200;
+	}
+	public void setStatus(AccountStatus status) {
+		// TODO Auto-generated method stub
+		this.status=status;
+	}
+	public AccountStatus getStatus() {
+		return status;
+	}
+	
+	protected double balance;
+	private String password;
+	
 	
 	public boolean withdraw(double amount, String password) {
-		
 		//first check the conditions
 		if(amount<0)
 			return false;
@@ -99,21 +96,20 @@ public class BankAccount {
 		}
 	}
 	
-	//change log: bank should pass interestRate here
-	public void creditInterest(double interestRate)
-	{
-		balance+=balance*interestRate/1200;
-	}
-
-
-	public void setStatus(AccountStatus status) {
-		// TODO Auto-generated method stub
-		this.status=status;
+	@Override
+	public String toString() {
+		return String.format("%s %d\t%f\t%s",
+				this.getAccountType(),
+				this.accountNumber,
+				this.balance,
+				this.name
+				);
 	}
 	
-	public AccountStatus getStatus() {
-		return status;
+	public String getAccountType() {
+		return getClass().getSimpleName();
 	}
+	
 	
 	
 	
