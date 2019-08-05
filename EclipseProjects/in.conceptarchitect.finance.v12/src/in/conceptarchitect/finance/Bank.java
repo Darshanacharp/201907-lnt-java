@@ -1,5 +1,7 @@
 package in.conceptarchitect.finance;
 
+import java.util.ArrayList;
+
 public class Bank {
 
 
@@ -7,30 +9,49 @@ public class Bank {
 	double interestRate=12;
 	private String name;
 
-	private static final int MAX_ACCOUNTS=100;
-	private BankAccount [] accounts=new BankAccount[MAX_ACCOUNTS];
-	
+//	private static final int MAX_ACCOUNTS=100;
+//	private BankAccount [] accounts=new BankAccount[MAX_ACCOUNTS];
+	private ArrayList<BankAccount> accounts=new ArrayList<BankAccount>();
 
+	private ArrayList<BankAccount> closedAccounts=new ArrayList<BankAccount>();
+	
 	private int addAccount(BankAccount account) {
 		int accountNumber=++lastId;
 		account.accountNumber=accountNumber;
-		accounts[accountNumber]=account;
+		accounts.add(account);				//accounts[accountNumber]=account;
+		
 		return accountNumber;
 	}
 	
 	private BankAccount findAccount(int accountNumber) {
 		if(accountNumber<1 || accountNumber> lastId)
-			throw new InvalidAccountException(accountNumber,"No Such Account "+accountNumber);
+			throw new InvalidAccountException(accountNumber,"No Such Account ");
 
-		BankAccount a=accounts[accountNumber];
-		return a;
+		
+		//BankAccount a=accounts.get(accountNumber-1);		//accounts[accountNumber];
+		
+		for(int i=0;i<accountNumber;i++)
+			if(accounts.get(i).accountNumber==accountNumber)
+				return accounts.get(i);
+		
+		throw new InvalidAccountException(accountNumber,"Account Has been Closed ");
+	}
+	
+	private ArrayList<BankAccount> getAccounts() {
+		// TODO Auto-generated method stub
+//		ArrayList<BankAccount> temp=new ArrayList<>();
+//		for(int i=1;i<accounts.size();i++)
+//			temp.add(accounts.get(i));
+//		
+//		return temp;
+		return accounts;
+			
+	}
+	
+	private void removeAccount(BankAccount account) {
+		accounts.remove(account);
 	}
 
-	
-	
-	
-	
-	
 	
 	private BankAccount findActiveAccount(int accountNumber) {
 
@@ -41,6 +62,10 @@ public class Bank {
 
 		return a;
 	}
+	
+	private int getCount() {
+		return accounts.size();
+	}
 
 		
 	
@@ -50,9 +75,12 @@ public class Bank {
 		// TODO Auto-generated constructor stub
 		this.name=name;
 		this.interestRate=rate;
+	//	accounts.add(null); //index 0 is now used
 	}
 
-	public int getAccountCount() { return lastId;}
+	public int getAccountCount() { return getCount();}
+
+	
 
 
 	public int openAccount(String accountName, String password, double amount) {
@@ -121,30 +149,27 @@ public class Bank {
 
 	public void printAccountList() {
 		// TODO Auto-generated method stub
+		//for(int i=1;i<=lastId; i++){
+		for(BankAccount account: getAccounts()) {
 
-		for(int i=1;i<=lastId; i++){
-			
-			BankAccount a=accounts[i];
-			if(a.getStatus()!=AccountStatus.ACTIVE)
+			if(account.getStatus()!=AccountStatus.ACTIVE)
 				continue;
-			
-			System.out.printf("%d\t%f\t%s\n", a.getAccountNumber(),a.getBalance(),a.getName());
+			System.out.printf("%d\t%f\t%s\n", account.getAccountNumber(),account.getBalance(),account.getName());
 		}
 
 	}
-	
-	
 	
 	public void creditInterest() {
 		// TODO Auto-generated method stub
-		for(int i=1;i<=lastId;i++)
-		{
-			BankAccount a=accounts[i];
-			if(a.getStatus()==AccountStatus.ACTIVE)
-				a.creditInterest(interestRate);
+		for(BankAccount account: getAccounts()) {
+			
+			if(account.getStatus()!=AccountStatus.ACTIVE)
+				continue;
+			account.creditInterest(interestRate);
 		}
 	}
 
+	
 	public void transfer(int sourceAccount, double amount, String password, int targetAccount) {
 		// TODO Auto-generated method stub
 
@@ -166,7 +191,12 @@ public class Bank {
 
 		account.setStatus(AccountStatus.CLOSED);
 		
+		removeAccount(account); //remove from active accounts
+		closedAccounts.add(account); //add to closed accounts
+		
 	}
+
+	
 
 	public BankAccount getAccount(int a1, String password) {
 		// TODO Auto-generated method stub
