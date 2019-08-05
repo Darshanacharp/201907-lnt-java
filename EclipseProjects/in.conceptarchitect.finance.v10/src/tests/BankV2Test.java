@@ -1,4 +1,4 @@
-/*
+
 package tests;
 
 import static org.junit.Assert.*;
@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import in.conceptarchitect.finance.Bank;
+import in.conceptarchitect.finance.InsufficientBalanceException;
 
 public class BankV2Test {
 
@@ -50,15 +51,14 @@ public class BankV2Test {
 		assertBalance(accountNumber,amount);
 	}
 	
-	@Test
+	@Test(expected = InsufficientBalanceException.class)
 	public void withdraw_failsForSavingsAccountIfMinBalanceIsNotMaintainted() {
 		//ARRANGE
 		int a1= bank.openSavingsAccount("some name", password, amount);
 		
 		assumeTrue(bank.getAccount(a1, password).getAccountType().equals("SavingsAccount"));
 		
-		
-		assertFalse(bank.withdraw(a1, amount - minBalance + 1, password));
+		bank.withdraw(a1, amount - minBalance + 1, password);
 		
 		assertBalanceUnchanged(a1);
 		
@@ -83,12 +83,12 @@ public class BankV2Test {
 		//ARRANGE
 		int a1= bank.openCurrentAccount("some name", password, amount);
 		
-		assumeTrue(bank.getAccount(a1, password).getAccountType().equals("SavingsAccount"));
+		bank.getAccount(a1, password).getAccountType().equals("SavingsAccount");
 		
 		
-		assertTrue(bank.withdraw(a1, amount, password));
+		bank.withdraw(a1, amount, password);
 		
-		assertBalanceUnchanged(0);
+		assertBalance(a1,0);
 		
 		
 	}
@@ -98,9 +98,6 @@ public class BankV2Test {
 		int a1=bank.openCurrentAccount("some name", password, amount);
 		
 		bank.creditInterest();
-		
-		
-		
 		assertBalanceUnchanged(a1);
 		
 	}
@@ -109,22 +106,12 @@ public class BankV2Test {
 	public void withdraw_canWithdrawMoreThanBalanceFromOverdraftAccount() {
 		//ARRANGE
 		int a1= bank.openOverdraftAccount("some name", password, amount);
-		
 		double od= 1000;
-		
 		double withdrawAmount= amount+od;
-		
 		double odCharge= od/10;
-		
 		double expectedBalance= -od-odCharge;
-		
-		 	
-		
-		
-		assertTrue(bank.withdraw(a1, withdrawAmount, password));
-		
+		bank.withdraw(a1, withdrawAmount, password);
 		assertBalance(a1, expectedBalance);
-		
 		
 	}
 	
@@ -164,7 +151,7 @@ public class BankV2Test {
 		
 		double finalBalance= -od -odCharge;
 		
-		//assertTrue(bank.withdraw(a1, withdrawAmount, password));
+		bank.withdraw(a1, withdrawAmount, password);
 		
 		assertBalance(a1, finalBalance);
 		
@@ -173,4 +160,3 @@ public class BankV2Test {
 	
 
 }
-*/

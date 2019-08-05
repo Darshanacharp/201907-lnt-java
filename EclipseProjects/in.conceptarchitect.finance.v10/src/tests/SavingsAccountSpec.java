@@ -1,14 +1,17 @@
-/*package tests;
+package tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import in.conceptarchitect.finance.BankAccount;
+import in.conceptarchitect.finance.InsufficientBalanceException;
+import in.conceptarchitect.finance.InvalidCredentialsException;
+import in.conceptarchitect.finance.InvalidDenominationException;
 import in.conceptarchitect.finance.SavingsAccount;
 
 public class SavingsAccountSpec {
@@ -39,42 +42,46 @@ public class SavingsAccountSpec {
 	}
 	
 	@Test
-	public void withdraw_failsForInvalidPassword() {
-		boolean result=account.withdraw(1, "wrong-password");
+	public void withdraw_throwsInvalidCredentialException_forInvalidPassword() {
+		try {
+			account.withdraw(1, "wrong-password");	
+			//Something went wrong!
+			//I was exception an exception
+			//An If I am here that means exception was not thrown
+			fail("Excpected Exception Never Thrown");
+		}catch(InvalidCredentialsException ex) {
+			//ALL IS WELL: TEST PASSED
+			//I MAY RUN ADDITIONAL ASSERT HERE
+			assertBalanceUnchanged();
+		}
 		
-		assertFalse(result);
-		assertBalanceUnchanged();
+		
 	}
 	
-	@Test
-	public void withdraw_failsForNegativeAmount() {
+	@Test(expected = InvalidDenominationException.class)
+	public void withdraw_throwsInvalidDenominationException_forNegativeAmount() {
 	
-		boolean result=account.withdraw(-1, password);
+		//This step throws exception
+		account.withdraw(-1, password);
 		
-		assertFalse(result);
-		assertBalanceUnchanged();
+		//This code is never executed
+		assertBalance(0); //this is wrong assertion. but will not be called
 	}
 	@Test
 	public void getMinBalance_shouldReturn5000() {
 		assertEquals(5000, account.getMinBalance());
 	}
 	
-	@Test
+	@Test(expected = InsufficientBalanceException.class)
 	public void withdraw_failsIfMinimumBalanceIsNotMaintained() {
 		int minBalance=account.getMinBalance();
-		boolean result=account.withdraw(amount-minBalance+1, password);
-		
-		assertFalse(result);
-		assertBalanceUnchanged();
-		
+		account.withdraw(amount-minBalance+1, password);
 	}
 	
 	@Test
 	public void withdraw_succeedsWithProperInput() {
 		int minBalance=account.getMinBalance();
-		boolean result=account.withdraw(100, password);
-		
-		assertTrue(result);
+		account.withdraw(100, password);
 		assertBalance(amount-100);
 	}
 	
@@ -83,17 +90,14 @@ public class SavingsAccountSpec {
 		double rate=12;
 		account.creditInterest(rate);
 		double expectedBalance= amount*1.01;
-		
 		assertBalance(expectedBalance);
 	}
 	
 	@Test
 	public void object_isATypeOfBankAccount() {
-	
 		assertTrue(account instanceof BankAccount);
 	}
 	
 	
 	
 }
-*/
