@@ -1,0 +1,5 @@
+4
+CurrentAccount,1,Shivanshi,pass,50000.000000
+OverdraftAccount,2,Sanjay,hello,65000.000000,6500.0
+SavingsAccount,3,Vivek,pass,20000.000000
+OverdraftAccount,4,Prabhat,p1234,50000.000000,5000.0

@@ -1,0 +1,19 @@
+C:\MyWorks\Corporate\201907-lnt-java\BasicDemos\demo05
+[ demo05 ]
+	 ( clean-classes.bat )
+	 ( FactorialApp.java )
+	[ lib ]
+		[ calculations ]
+			 ( Combination.class )
+			 ( Combination.java )
+			 ( Math.class )
+			 ( Math.java )
+			 ( Permutation.class )
+			 ( Permutation.java )
+		[ console ]
+			 ( Input.class )
+			 ( Input.java )
+			 ( PrintWriter.class )
+			 ( PrintWriter.java )
+	 ( PerComApp.class )
+	 ( PerComApp.java )

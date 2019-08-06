@@ -1,10 +1,8 @@
 package in.conceptarchitect.finance;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 
-public class Bank {
+public class BankV1 {
 
 
 	int lastId=0;
@@ -13,45 +11,45 @@ public class Bank {
 
 //	private static final int MAX_ACCOUNTS=100;
 //	private BankAccount [] accounts=new BankAccount[MAX_ACCOUNTS];
-//	private ArrayList<BankAccount> accounts=new ArrayList<BankAccount>();
-	
-	private HashMap<Integer, BankAccount> accounts=new HashMap<>();
-	
-	
+	private ArrayList<BankAccount> accounts=new ArrayList<BankAccount>();
 
 	private ArrayList<BankAccount> closedAccounts=new ArrayList<BankAccount>();
 	
 	private int addAccount(BankAccount account) {
 		int accountNumber=++lastId;
 		account.accountNumber=accountNumber;
-		//accounts.add(account);				//accounts[accountNumber]=account;
-		accounts.put(accountNumber, account);
+		accounts.add(account);				//accounts[accountNumber]=account;
 		
 		return accountNumber;
 	}
 	
 	private BankAccount findAccount(int accountNumber) {
+		if(accountNumber<1 || accountNumber> lastId)
+			throw new InvalidAccountException(accountNumber,"No Such Account ");
+
 		
-		if(accounts.containsKey(accountNumber))
-			return accounts.get(accountNumber);
+		//BankAccount a=accounts.get(accountNumber-1);		//accounts[accountNumber];
 		
-		throw new InvalidAccountException(accountNumber,"Invalid Account");
+		for(int i=0;i<accountNumber;i++)
+			if(accounts.get(i).accountNumber==accountNumber)
+				return accounts.get(i);
+		
+		throw new InvalidAccountException(accountNumber,"Account Has been Closed ");
 	}
 	
-	private Collection<BankAccount> getAccounts() {
+	private ArrayList<BankAccount> getAccounts() {
 		// TODO Auto-generated method stub
 //		ArrayList<BankAccount> temp=new ArrayList<>();
 //		for(int i=1;i<accounts.size();i++)
 //			temp.add(accounts.get(i));
 //		
 //		return temp;
-		return accounts.values();
+		return accounts;
 			
 	}
 	
 	private void removeAccount(BankAccount account) {
-		//accounts.remove(account);
-		accounts.remove(account.getAccountNumber());
+		accounts.remove(account);
 	}
 
 	
@@ -73,7 +71,7 @@ public class Bank {
 	
 	
 	
-	public Bank(String name, double rate) {
+	public BankV1(String name, double rate) {
 		// TODO Auto-generated constructor stub
 		this.name=name;
 		this.interestRate=rate;

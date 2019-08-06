@@ -1,0 +1,13 @@
+Assignment:
+
+	* Update bank.java
+	* replace accounts array with ArrayList
+	* when an account is closed
+		* it should be moved from accounts list to closedAccounts list
+
+
+
+	// BankAccount [] accounts=new BankAccount[MAX_ACCOUNTS]
+
+	// ArrayList<BankAccount> accounts=new ArrayList<BankAccount>(); 
+						//size not required

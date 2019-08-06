@@ -7,80 +7,21 @@ import java.util.HashMap;
 public class Bank {
 
 
-	int lastId=0;
 	double interestRate=12;
 	private String name;
-
-//	private static final int MAX_ACCOUNTS=100;
-//	private BankAccount [] accounts=new BankAccount[MAX_ACCOUNTS];
-//	private ArrayList<BankAccount> accounts=new ArrayList<BankAccount>();
-	
-	private HashMap<Integer, BankAccount> accounts=new HashMap<>();
+	AccountStore store;
 	
 	
-
-	private ArrayList<BankAccount> closedAccounts=new ArrayList<BankAccount>();
-	
-	private int addAccount(BankAccount account) {
-		int accountNumber=++lastId;
-		account.accountNumber=accountNumber;
-		//accounts.add(account);				//accounts[accountNumber]=account;
-		accounts.put(accountNumber, account);
-		
-		return accountNumber;
-	}
-	
-	private BankAccount findAccount(int accountNumber) {
-		
-		if(accounts.containsKey(accountNumber))
-			return accounts.get(accountNumber);
-		
-		throw new InvalidAccountException(accountNumber,"Invalid Account");
-	}
-	
-	private Collection<BankAccount> getAccounts() {
-		// TODO Auto-generated method stub
-//		ArrayList<BankAccount> temp=new ArrayList<>();
-//		for(int i=1;i<accounts.size();i++)
-//			temp.add(accounts.get(i));
-//		
-//		return temp;
-		return accounts.values();
-			
-	}
-	
-	private void removeAccount(BankAccount account) {
-		//accounts.remove(account);
-		accounts.remove(account.getAccountNumber());
-	}
-
-	
-	private BankAccount findActiveAccount(int accountNumber) {
-
-		BankAccount a = findAccount(accountNumber);
-
-		if(a.getStatus()!=AccountStatus.ACTIVE)
-			throw new InvalidAccountException(accountNumber,"Account Has Been Closed");
-
-		return a;
-	}
-	
-	private int getCount() {
-		return accounts.size();
-	}
-
-		
-	
-	
-	
-	public Bank(String name, double rate) {
+	public Bank(String name, double rate, AccountStore store) {
 		// TODO Auto-generated constructor stub
 		this.name=name;
 		this.interestRate=rate;
 	//	accounts.add(null); //index 0 is now used
+		//store=new HashmapAccountStore();
+		this.store=store;
 	}
 
-	public int getAccountCount() { return getCount();}
+	public int getAccountCount() { return store.getCount();}
 
 	
 
@@ -94,26 +35,26 @@ public class Bank {
 		// TODO Auto-generated method stub
 		
 		BankAccount account=new SavingsAccount(0,accountName,password, amount);
-		return addAccount(account);
+		return store.addAccount(account);
 	}
 
 	
 	
 	public int openCurrentAccount(String accountName, String password, double amount) {
 		// TODO Auto-generated method stub
-		return addAccount(new CurrentAccount(0,accountName,password, amount));
+		return store.addAccount(new CurrentAccount(0,accountName,password, amount));
 	}
 	
 	public int openOverdraftAccount(String accountName, String password, double amount) {
 		// TODO Auto-generated method stub
-		return addAccount(new OverdraftAccount(0,accountName,password, amount));
+		return store.addAccount(new OverdraftAccount(0,accountName,password, amount));
 		
 	}
 	
 	
 
 	public void showInfo(int accountNumber, String password) {
-		BankAccount a = findActiveAccount(accountNumber);
+		BankAccount a = store.findActiveAccount(accountNumber);
 		a.authenticate(password);
 		System.out.println(a);
 	}
@@ -121,20 +62,19 @@ public class Bank {
 
 	public void deposit(int accountNumber, double amount) {
 		// TODO Auto-generated method stub
-		BankAccount a = findActiveAccount(accountNumber);
+		BankAccount a = store.findActiveAccount(accountNumber);
 		a.deposit(amount);
+		store.update(a);
 
 	}
 
 	
-
-
-
 	public void withdraw(int accountNumber, double amount, String password) {
 		// TODO Auto-generated method stub
-		BankAccount a=findActiveAccount(accountNumber);
+		BankAccount a=store.findActiveAccount(accountNumber);
 		
 		a.withdraw(amount, password);
+		store.update(a);
 	}
 
 
@@ -152,7 +92,7 @@ public class Bank {
 	public void printAccountList() {
 		// TODO Auto-generated method stub
 		//for(int i=1;i<=lastId; i++){
-		for(BankAccount account: getAccounts()) {
+		for(BankAccount account: store.getAccounts()) {
 
 			if(account.getStatus()!=AccountStatus.ACTIVE)
 				continue;
@@ -163,29 +103,34 @@ public class Bank {
 	
 	public void creditInterest() {
 		// TODO Auto-generated method stub
-		for(BankAccount account: getAccounts()) {
+		for(BankAccount account: store.getAccounts()) {
 			
 			if(account.getStatus()!=AccountStatus.ACTIVE)
 				continue;
 			account.creditInterest(interestRate);
 		}
+		
+		store.update(null); //null means all update
 	}
 
 	
 	public void transfer(int sourceAccount, double amount, String password, int targetAccount) {
 		// TODO Auto-generated method stub
 
-		BankAccount from=findActiveAccount(sourceAccount);
-		BankAccount to=findActiveAccount(targetAccount);
+		BankAccount from=store.findActiveAccount(sourceAccount);
+		BankAccount to=store.findActiveAccount(targetAccount);
 
 		from.withdraw(amount,password);
 		to.deposit(amount);
+		
+		store.update(from);
+		store.update(to);
 		
 	}
 
 	public void closeAccount(int accountNumber, String password) {
 		// TODO Auto-generated method stub
-		BankAccount account=findActiveAccount(accountNumber);
+		BankAccount account=store.findActiveAccount(accountNumber);
 		
 		account.authenticate(password);
 		if(account.getBalance()<0)
@@ -193,8 +138,8 @@ public class Bank {
 
 		account.setStatus(AccountStatus.CLOSED);
 		
-		removeAccount(account); //remove from active accounts
-		closedAccounts.add(account); //add to closed accounts
+		store.removeAccount(account); //remove from active accounts
+		//closedAccounts.add(account); //add to closed accounts
 		
 	}
 
@@ -202,7 +147,7 @@ public class Bank {
 
 	public BankAccount getAccount(int a1, String password) {
 		// TODO Auto-generated method stub
-		BankAccount a= findActiveAccount(a1);
+		BankAccount a= store.findActiveAccount(a1);
 		a.authenticate(password);	
 		return a;
 		
