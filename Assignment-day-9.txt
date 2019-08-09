@@ -1,0 +1,66 @@
+
+
+class ListUtilsTest{
+
+	ListUtils utils=new ListUtils();
+	List<Integer> numbers;
+	List<String> names;
+
+	@Before
+	public void setup(){
+		numbers=Arrays.asList({2,3,1,9,4,5,7,8,2,17,61,52,5,44,33,37} );
+		names=Arrays.asList({"India","USA","UK","UAE","Japan","France","China","Norway"});
+	}
+
+	@Test
+	public void search_canCreateAListOfEvenNumbers(){
+		//act use utils class search to search it
+		List<Integer> evens=utils.search(...);
+
+		Assert.Equals(6, evens.size());
+	}
+
+	@Test
+	public void search_canSearchAllNamesWhoseLengthIsGreaterThan3(){
+		List<String> result= utils.search(...);
+		Assert.Equals(5, result.size());
+	}
+
+
+	@Test
+	public void search_canFindNamesWhichAreAllUpperCaps(){
+		List<Search> result=utils.search(...);
+
+		Assert.Equals(3, result.size());
+	}
+
+	@Test
+	public void convert_canConvertListOfStringToListOfIntegerContainingItsLength(){
+
+		List<Integer> result= utils.search(...); //search names
+
+		//do necessary asserts
+	}
+
+
+	@Test
+	public void convert_canReturnAListOfNumbersContainingUnitPlaceDigitOfEachNumber(){
+
+		//test data
+		List<Integer> values= Arrays.asList({29,43,86,19,25} );
+
+		List<Integer> result=utils.convert(...);
+
+		//list should be
+		{9,3,6,9,6}
+
+	}	
+
+
+
+
+
+
+
+
+}

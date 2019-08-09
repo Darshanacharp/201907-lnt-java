@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+        
+    <wb-module deploy-name="bank-web">
+                
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+                
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="in.conceptarchitect.finance.v16.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/in.conceptarchitect.finance.v16/in.conceptarchitect.finance.v16">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                
+        <property name="context-root" value="bank-web"/>
+                
+        <property name="java-output-path" value="/bank-web/build/classes"/>
+            
+    </wb-module>
+    
+</project-modules>
