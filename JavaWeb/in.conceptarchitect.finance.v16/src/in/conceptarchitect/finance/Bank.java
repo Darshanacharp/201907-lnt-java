@@ -26,9 +26,14 @@ public class Bank {
 	
 
 
-	public int openAccount(String accountName, String password, double amount) {
+	public int openAccount(String accountType, String accountName, String password, double amount) {
 		// TODO Auto-generated method stub
-		return openSavingsAccount(accountName, password, amount);
+		switch(accountType.toLowerCase().charAt(0)) {
+		case 's': return openSavingsAccount(accountName, password, amount);
+		case 'c': return openCurrentAccount(accountName, password, amount);
+		case 'o': return openOverdraftAccount(accountName, password, amount);
+		}
+		throw new BankingException(0, "Invalid Account Type : "+accountType);
 	}
 	
 	public int openSavingsAccount(String accountName, String password, double amount) {

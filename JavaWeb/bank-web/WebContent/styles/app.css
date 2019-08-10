@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+.list-group-item-action {
+	cursor:pointer;
+	
+}
+
+.list-group-item{
+	margin-bottom:2px;	
+}
+
+.list-group{
+	margin:5%;
+}

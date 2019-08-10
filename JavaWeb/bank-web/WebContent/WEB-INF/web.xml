@@ -18,10 +18,18 @@
   
   <servlet-mapping>
   	<servlet-name>home-servlet</servlet-name>
-  	<url-pattern>/</url-pattern>
+  	<url-pattern>/home</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>close-account-servlet</servlet-name>
+  	<servlet-class>in.conceptarchitect.banking.web.admin.CloseAccountServlet</servlet-class>
+  </servlet>
   
+  <servlet-mapping>
+  	<servlet-name>close-account-servlet</servlet-name>
+  	<url-pattern>/admin/close-account/*</url-pattern>
+  </servlet-mapping>
   
   
 </web-app>

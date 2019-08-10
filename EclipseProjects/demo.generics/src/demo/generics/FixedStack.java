@@ -1,6 +1,9 @@
 package demo.generics;
 
-public class FixedStack<X> {
+public class FixedStack<X> implements Stack<X> {
+	
+	
+	
 	X [] values;
 	int top;
 	public FixedStack(int size) {
@@ -8,12 +11,14 @@ public class FixedStack<X> {
 		top=0;
 	}
 	
+	@Override
 	public void push(X value) {
 		if(isFull())
 			throw new StackOverFlowException(value);
 		values[top++]=value;
 	}
 
+	@Override
 	public X pop() {
 		if(isEmpty())
 			throw new StackUnderFlowException();
@@ -21,19 +26,25 @@ public class FixedStack<X> {
 		return values[--top];
 	}
 	
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return top==0;
-	}
 
+	@Override
 	public boolean isFull() {
 		// TODO Auto-generated method stub
 		return top==values.length;
 	}
 
+	@Override
 	public int size() {
 		// TODO Auto-generated method stub
 		return top;
+	}
+	
+	
+	//we can override interface defaults
+	@Override
+	public void clear() {
+		//I dont want items be cleared
+		
 	}
 	
 	

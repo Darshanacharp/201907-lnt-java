@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import demo.generics.FixedStack;
+import demo.generics.Stack;
 
 public class FixedStackTest {
 
@@ -16,7 +17,7 @@ public class FixedStackTest {
 	
 	@Test
 	public void push_canPushDesiredTypeOnly() {
-		FixedStack<String> stack=new FixedStack<String>(STACK_SIZE);
+		Stack<String> stack=new FixedStack<String>(STACK_SIZE);
 		stack.push("hello");
 		//stack.push(29); //error detected early
 		stack.push("hi");
@@ -25,7 +26,7 @@ public class FixedStackTest {
 	
 	@Test
 	public void pop__knowsDataBeingPopped() {
-		FixedStack<String> stack=new FixedStack<>(STACK_SIZE);
+		Stack<String> stack=new FixedStack<>(STACK_SIZE);
 		stack.push("india");
 		stack.push("usa");
 		stack.push("france");
@@ -42,7 +43,7 @@ public class FixedStackTest {
 	
 	@Test
 	public void stack_doesntKnowDataBeingPushedOrPopped() {
-		FixedStack<String> stack=new FixedStack<String>(3);
+		Stack<String> stack=new FixedStack<String>(3);
 		
 		stack.push("india");
 		//expected to push only strings
@@ -62,7 +63,7 @@ public class FixedStackTest {
 	
 	@Test
 	public void new_stackWithoutGenericTypeDefaultsToStackOfObject() {
-		FixedStack stack=new FixedStack(3); //same as new FixedStack<Object>(3)
+		Stack stack=new FixedStack(3); //same as new FixedStack<Object>(3)
 		
 		stack.push("india");
 		stack.push(new ArrayList<String>());
@@ -75,7 +76,7 @@ public class FixedStackTest {
 	
 	@Test
 	public void new_stackShoudHaveExplicitTypeSpecialization() {
-		FixedStack<Object> stack=new FixedStack<Object>(3); //same as new FixedStack<Object>(3)
+		Stack<Object> stack=new FixedStack<Object>(3); //same as new FixedStack<Object>(3)
 		
 		stack.push("india");
 		stack.push(new ArrayList<String>());
@@ -93,7 +94,7 @@ public class FixedStackTest {
 	
 	@Test
 	public void new_canUseWrapperForPrimitiveTypeAsGenericParameter() {
-		FixedStack<Integer> values=new FixedStack<>(4);
+		Stack<Integer> values=new FixedStack<>(4);
 		
 		values.push(1); //auto boxed to values.push(new Integer(1))
 		values.push(2);
